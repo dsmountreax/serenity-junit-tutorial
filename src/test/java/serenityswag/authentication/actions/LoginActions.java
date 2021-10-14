@@ -77,7 +77,7 @@ public class LoginActions extends UIInteractionSteps {
         openUrl("https://www.saucedemo.com/");
         //Login as a standard user
         $("[class='input_error form_input']").sendKeys(user.getUsername());
-        find(By.className("input_error form_input")).sendKeys(user.getPassword());
+        find(By.name("password")).sendKeys(user.getPassword());
         $(By.name("login-button")).click();
         //$ is equivalent to find
         // WebDriver y UIInteractionSteps no son compatibles
