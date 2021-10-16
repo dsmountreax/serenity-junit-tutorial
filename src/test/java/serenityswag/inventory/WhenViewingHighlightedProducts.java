@@ -43,6 +43,7 @@ public class WhenViewingHighlightedProducts {
         String firstItemName=productList.titles().get(0);
         productList.openProductDetailFor(firstItemName);
         assertThat(productDetails.productName()).isEqualTo(firstItemName);
+        productDetails.productImageWithAltValueOf(firstItemName).shouldBeVisible(); // ".inventory_details_container img[alt='Sauce Labs Backpack']"
 
     }
     // Final de Lab_020

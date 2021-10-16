@@ -35,6 +35,4 @@ public class WhenLogginOn extends UIInteractionSteps{
                 .isEqualTo("PRODUCTS");
     }
 
-    public static class Lab_13 {
-    }
 }
