@@ -4,7 +4,7 @@ import net.serenitybdd.core.pages.WebElementState;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 
-public class ProductDetailsPage extends PageObject {
+public class ProductDetails extends PageObject {
     public String productName() {
         return $(".inventory_details_name").getText();
     }

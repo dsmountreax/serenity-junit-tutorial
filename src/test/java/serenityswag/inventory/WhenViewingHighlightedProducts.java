@@ -22,7 +22,7 @@ public class WhenViewingHighlightedProducts {
     @Steps
     LoginActions login;
     ProductListPageObject productList;
-    ProductDetailsPage productDetails;
+    ProductDetails productDetails;
 
     @Test
     public void shouldDisplayHighlightedProductsOnTheWelcome()

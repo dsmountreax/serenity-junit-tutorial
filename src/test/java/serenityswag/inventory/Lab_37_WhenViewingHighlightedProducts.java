@@ -1,6 +1,7 @@
 package serenityswag.inventory;
 
 
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -27,7 +28,7 @@ public class Lab_37_WhenViewingHighlightedProducts {
     ViewProductDetailsActions viewProductDetails;
 
     ProductList productList;
-    ProductDetailsPage productDetails;
+    ProductDetails productDetails;
 
     @Test
     public void shouldDisplayHighlightedProductsOnTheWelcome()
@@ -63,11 +64,16 @@ public class Lab_37_WhenViewingHighlightedProducts {
         login.as(User.STANDARD_USER);
         String firstItemName=productList.titles().get(0);
 
-        //productList.openProductDetailFor(firstItemName);
-        viewProductDetails.forProductWithName(firstItemName);
-        assertThat(productDetails.productName()).isEqualTo(firstItemName);
-        productDetails.productImageWithAltValueOf(firstItemName).shouldBeVisible(); // ".inventory_details_container img[alt='Sauce Labs Backpack']"
+        //productList.openProductDetailFor(firstItemName); eliminado en Lab_37
 
+        viewProductDetails.forProductWithName(firstItemName);
+
+        Serenity.reportThat("The product name should be correctly displayed",
+                ()->assertThat(productDetails.productName()).isEqualTo(firstItemName));
+
+        Serenity.reportThat("The product image should be have the correct alt text",
+                ()->productDetails.productImageWithAltValueOf(firstItemName).shouldBeVisible()
+                /* ".inventory_details_container img[alt='Sauce Labs Backpack']"*/);
     }
     // Final de Lab_020
 

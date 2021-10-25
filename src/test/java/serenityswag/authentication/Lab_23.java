@@ -1,6 +1,5 @@
 package serenityswag.authentication;
 
-import net.serenitybdd.core.steps.UIInteractionSteps;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -8,9 +7,8 @@ import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
-import serenityswag.authentication.User;
 import serenityswag.authentication.actions.LoginActions;
-import serenityswag.inventory.ProductDetailsPage;
+import serenityswag.inventory.ProductDetails;
 import serenityswag.inventory.ProductListPageObject;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,7 +24,7 @@ public class Lab_23 {
     @Steps
     LoginActions login;
     ProductListPageObject productList;
-    ProductDetailsPage productDetails;
+    ProductDetails productDetails;
 
     @Test
     public void shouldDisplayHighlightedProductsOnTheWelcome()
