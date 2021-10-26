@@ -7,6 +7,11 @@ import java.util.List;
 
 public class ProductList extends PageObject {
 
+    public static By addToCartButtonFor(String itemName) {
+        return By.xpath("//div[@class='inventory_item'][contains(.,'"+ itemName +"')]//button");
+        // dynamic By remember to put ''
+    }
+
     public List<String> titles() {
         //return findAll(By.className("inventory_item_name")).textContents(); Usual convention
         return findAll(".inventory_item_name").textContents();
