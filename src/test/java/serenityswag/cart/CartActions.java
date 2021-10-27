@@ -6,10 +6,12 @@ import serenityswag.inventory.ProductList;
 
 import java.util.List;
 
-public class AddToCartActions extends UIInteractionSteps {
+public class CartActions extends UIInteractionSteps {
+
+    ShoppingCartIcon shoppingCartIcon;
 
     @Step("Add {0} to the cart")
-    public void item(String itemName) {
+    public void addItem(String itemName) {
         //$$("Locator") in console get more details about the elements
         //Enrique $$(".inventory_item [data-test*='backpack']")
         //$("//div[@class='inventory_item'] //button[contains(.,"+ itemName +")]");
@@ -17,8 +19,20 @@ public class AddToCartActions extends UIInteractionSteps {
     }
 
     @Step("Add {0} to the cart")
-    public void items(List<String> items) {
-       items.forEach(this::item);
+    public void addItems(List<String> items) {
+       items.forEach(this::addItem);
        // code part to analyze
+    }
+
+    @Step("Open the shopping cart")
+    public void openCart() {
+        $(shoppingCartIcon.link()).click();
+        // $(ShoppingCartIcon.link()).click(); But you need to change method to static
+    }
+
+    public List<String> displayedItems() {
+
+        return findAll(".inventory_item_name").texts();
+
     }
 }

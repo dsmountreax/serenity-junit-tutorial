@@ -1,4 +1,4 @@
-package serenityswag.inventory;
+package serenityswag.cart;
 
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit.runners.SerenityRunner;
@@ -9,10 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
-import serenityswag.authentication.User;
 import serenityswag.authentication.actions.LoginActions;
-import serenityswag.cart.AddToCartActions;
-import serenityswag.cart.ShoppingCartBadge;
+import serenityswag.cart.CartActions;
+import serenityswag.cart.ShoppingCartIcon;
+import serenityswag.inventory.ProductList;
 
 import java.util.List;
 
@@ -30,11 +30,11 @@ public class WhenAddingAnItemCountShouldBeShown {
     LoginActions login;
 
     // Page component
-    ShoppingCartBadge shoppingCartBadge;
+    ShoppingCartIcon shoppingCartBadge;
     ProductList productList;
 
     @Steps
-    AddToCartActions addToCart;
+    CartActions cart;
 
     @Before
     public void login()
@@ -49,16 +49,16 @@ public class WhenAddingAnItemCountShouldBeShown {
 
         // Check that the shopping cart badge is empty.
         Serenity.reportThat("Check that the shopping cart badge is empty.",
-                ()->assertThat(shoppingCartBadge.count()).isEmpty());
+                ()->assertThat(shoppingCartBadge.badgeCount()).isEmpty());
 
         // assert is from Assertions.assertThat (or.assertj.core.api)
 
         // Add 1 item to the cart
-        addToCart.item("Sauce Labs Backpack");
+        cart.addItem("Sauce Labs Backpack");
 
         // The shopping cart badge should be "1"
         Serenity.reportThat("The shopping cart badge should be '1'",
-                ()->assertThat(shoppingCartBadge.count()).isEqualTo("1"));
+                ()->assertThat(shoppingCartBadge.badgeCount()).isEqualTo("1"));
     }
 
     @Test
@@ -66,23 +66,49 @@ public class WhenAddingAnItemCountShouldBeShown {
     {
         //Add several items to the cart
 
-        List<String> productTitles= firstThreeProductTitlesDisplayed();
+        List<String> selectedItems= firstThreeProductTitlesDisplayed();
 
         //Open the cart page
-        addToCart.items(productTitles);
+        cart.addItems(selectedItems);
 
-        String cartBadgeCount=Integer.toString(productTitles.size());
+        String cartBadgeCount=Integer.toString(selectedItems.size());
 
         Serenity.reportThat("The shopping cart badge should be" + cartBadgeCount,
-                ()->assertThat(shoppingCartBadge.count()).isEqualTo(cartBadgeCount)
+                ()->assertThat(shoppingCartBadge.badgeCount()).isEqualTo(cartBadgeCount)
         );
 
         //Should see all of the items listed
+        cart.openCart();
+
+        Serenity.reportThat("Should see all of the items listed",
+                ()->assertThat(cart.displayedItems()).containsExactlyElementsOf(selectedItems));
+
 
     }
 
     @NotNull
     private List<String> firstThreeProductTitlesDisplayed() {
-        return productList.titles().subList(0,2);
+
+        return productList.titles().subList(0,3);
+        // TO DO make table about String and Stream
+    }
+
+    CartPageObject cartPage;
+
+    @Test
+    public void pricesForEachItemShouldBeShownInTheCart()
+    {
+        //Add items to the shopping cart
+
+        cart.addItems(firstThreeProductTitlesDisplayed());
+
+        // Open the cart page
+
+        cartPage.open();
+
+        // Check that each item in the cart has a price
+
+        //List<CartItem> items=cartPage.items();
+
     }
 }
