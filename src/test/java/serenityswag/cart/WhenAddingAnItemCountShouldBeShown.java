@@ -105,6 +105,7 @@ public class WhenAddingAnItemCountShouldBeShown {
         // Open the cart page
 
         cartPage.open();
+        cartPage.open();
 
         // Check that each item in the cart has a price
 
